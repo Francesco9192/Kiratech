@@ -1,0 +1,31 @@
+# Scelta del Tool di Benchmark - K-Rail
+
+## Introduzione
+
+Nel contesto della configurazione e sicurezza del nostro cluster Kubernetes, è stato scelto di utilizzare K-Rail come strumento di benchmark.
+K-Rail è stato selezionato per le seguenti ragioni:
+
+## Perché K-Rail?
+
+1. **Prevenzione delle Configurazioni Non Sicure:**
+   - K-Rail è progettato per prevenire configurazioni non sicure all'interno dei cluster Kubernetes. 
+   Fornisce una serie di policy di sicurezza predefinite e configurabili che aiutano a garantire che le risorse del cluster siano create con configurazioni sicure.
+
+2. **Facilità di Integrazione:**
+   - K-Rail è facilmente integrabile con Kubernetes tramite Helm, il che semplifica il deployment e la gestione del tool nel cluster. 
+   La configurazione tramite Helm consente una gestione centralizzata e una facile applicazione delle policy di sicurezza.
+
+3. **Automazione e Compliance:**
+   - Utilizzare K-Rail aiuta a garantire che le risorse del cluster rispettino le best practices di sicurezza e conformità. 
+   Questo è particolarmente utile per ambienti di produzione e test dove la sicurezza è una priorità.
+
+4. **Documentazione e Supporto:**
+   - K-Rail è ben documentato e supportato dalla comunità. 
+   Questo facilita la risoluzione dei problemi e l'implementazione di policy di sicurezza personalizzate.
+
+5. **Policy Personalizzabili:**
+   - K-Rail consente la definizione e l'applicazione di policy di sicurezza personalizzate, permettendo di adattare le configurazioni di sicurezza alle esigenze specifiche del nostro ambiente.
+
+
+La scelta di K-Rail è stata fatta tenendo conto della necessità di prevenire configurazioni non sicure e di garantire una gestione semplificata delle policy di sicurezza nel nostro cluster Kubernetes. 
+Grazie alla sua integrazione con Helm e alla sua capacità di applicare policy di sicurezza personalizzabili, K-Rail rappresenta una scelta efficace per migliorare la sicurezza del nostro ambiente Kubernetes.
