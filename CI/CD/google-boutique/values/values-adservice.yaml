@@ -1,0 +1,27 @@
+image:
+  repository: gcr.io/google-samples/microservices-demo/adservice
+  tag: v0.9.0
+
+service:
+  type: ClusterIP
+  port: 9555
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 128Mi
+
+probes:
+  readiness:
+    grpcPort: 9555
+  liveness:
+    grpcPort: 9555
+
+securityContext:
+  fsGroup: 1000
+  runAsGroup: 1000
+  runAsNonRoot: true
+  runAsUser: 1000

@@ -1,0 +1,35 @@
+image:
+  repository: gcr.io/google-samples/microservices-demo/checkoutservice
+  tag: v0.9.0
+
+service:
+  type: ClusterIP
+  port: 5050
+
+env:
+  PRODUCT_CATALOG_SERVICE_ADDR: productcatalogservice:3550
+  SHIPPING_SERVICE_ADDR: shippingservice:50051
+  PAYMENT_SERVICE_ADDR: paymentservice:50051
+  EMAIL_SERVICE_ADDR: emailservice:5000
+  CURRENCY_SERVICE_ADDR: currencyservice:7000
+  CART_SERVICE_ADDR: cartservice:7070
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 128Mi
+
+probes:
+  readiness:
+    grpcPort: 5050
+  liveness:
+    grpcPort: 5050
+
+securityContext:
+  fsGroup: 1000
+  runAsGroup: 1000
+  runAsNonRoot: true
+  runAsUser: 1000

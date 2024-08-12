@@ -1,0 +1,27 @@
+image:
+  repository: gcr.io/google-samples/microservices-demo/paymentservice
+  tag: v0.9.0
+
+service:
+  type: ClusterIP
+  port: 50051
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 128Mi
+
+probes:
+  readiness:
+    grpcPort: 50051
+  liveness:
+    grpcPort: 50051
+
+securityContext:
+  fsGroup: 1000
+  runAsGroup: 1000
+  runAsNonRoot: true
+  runAsUser: 1000

@@ -1,0 +1,27 @@
+image:
+  repository: gcr.io/google-samples/microservices-demo/productcatalogservice
+  tag: v0.9.0
+
+service:
+  type: ClusterIP
+  port: 3550
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 128Mi
+
+probes:
+  readiness:
+    grpcPort: 3550
+  liveness:
+    grpcPort: 3550
+
+securityContext:
+  fsGroup: 1000
+  runAsGroup: 1000
+  runAsNonRoot: true
+  runAsUser: 1000

@@ -1,0 +1,68 @@
+pipeline {
+    agent any
+
+    environment {
+        KUBECONFIG = credentials('kubeconfig') // Assicurati che le credenziali del cluster Kubernetes siano configurate
+    }
+
+    parameters {
+        choice(
+            name: 'SERVICES_TO_DEPLOY', 
+            choices: [
+                'all', 
+                'adservice', 
+                'cartservice', 
+                'checkoutservice', 
+                'currencyservice', 
+                'emailservice', 
+                'frontend', 
+                'loadgenerator', 
+                'paymentservice', 
+                'productcatalogservice', 
+                'recommendationservice', 
+                'shippingservice'
+            ], 
+            description: 'Seleziona il microservizio da deployare, o "all" per deployare tutto'
+        )
+    }
+
+    stages {
+        stage('Deploy') {
+            steps {
+                script {
+                    def services = []
+                    
+                    if (params.SERVICES_TO_DEPLOY == 'all') {
+                        // Se viene selezionato "all", deploya tutti i servizi
+                        services = [
+                            'adservice', 
+                            'cartservice', 
+                            'checkoutservice', 
+                            'currencyservice', 
+                            'emailservice', 
+                            'frontend', 
+                            'loadgenerator', 
+                            'paymentservice', 
+                            'productcatalogservice', 
+                            'recommendationservice', 
+                            'shippingservice'
+                        ]
+                    } else {
+                        // Altrimenti, deploya solo il servizio selezionato
+                        services = [params.SERVICES_TO_DEPLOY]
+                    }
+                    
+                    for (service in services) {
+                        try {
+                            sh "helm upgrade --install ${service} templates/ -f values/values-${service}.yaml"
+                            echo "Deployment del servizio ${service} completato con successo"
+                        } catch (Exception e) {
+                            echo "Errore durante il deployment del servizio ${service}: ${e.getMessage()}"
+                            // Logica di rollback o altri interventi correttivi
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

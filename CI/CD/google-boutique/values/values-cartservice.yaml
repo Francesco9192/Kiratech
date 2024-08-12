@@ -1,0 +1,33 @@
+image:
+  repository: gcr.io/google-samples/microservices-demo/cartservice
+  tag: v0.9.0
+
+service:
+  type: ClusterIP
+  port: 7070
+
+env:
+  REDIS_ADDR: redis-cart:6379
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 64Mi
+  limits:
+    cpu: 300m
+    memory: 128Mi
+
+probes:
+  readiness:
+    initialDelaySeconds: 15
+    grpcPort: 7070
+  liveness:
+    initialDelaySeconds: 15
+    periodSeconds: 10
+    grpcPort: 7070
+
+securityContext:
+  fsGroup: 1000
+  runAsGroup: 1000
+  runAsNonRoot: true
+  runAsUser: 1000
